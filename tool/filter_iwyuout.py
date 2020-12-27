@@ -1,6 +1,6 @@
 #! /usr/bin/env python3
 # IWYU output filter
-# Copyright (C) 2019-2020 kaoru  https://www.tetengo.org/
+# Copyright (C) 2019-2021 kaoru  https://www.tetengo.org/
 
 import re
 import sys
