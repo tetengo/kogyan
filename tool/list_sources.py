@@ -2,10 +2,11 @@
 # Lists the source files
 # Copyright (C) 2019-2020 kaoru  https://www.tetengo.org/
 
+import os.path
 from pathlib import Path
 
 
-directories = ['executable', 'library']
+directories = ['library', 'sample']
 extensions = ['h', 'hpp', 'c', 'cpp']
 
 def list_iter(root_path, directory, extension):
@@ -13,13 +14,14 @@ def list_iter(root_path, directory, extension):
     return [p for p in path.glob('**/*.' + extension)]
 
 def root():
-    return Path(__file__).parent.parent
+    return Path(__file__).parent.parent.parent
 
 def list():
     root_path= root()
     files = []
     for d in directories:
-        for e in extensions:
-            for f in list_iter(root_path, d, e):
-                files.append(f)
+        if os.path.exists(root_path / d):
+            for e in extensions:
+                for f in list_iter(root_path, d, e):
+                    files.append(f)
     return files
