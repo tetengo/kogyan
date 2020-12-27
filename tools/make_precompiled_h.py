@@ -123,7 +123,7 @@ def make_precompiled_h(libc_includes, libcpp_includes, boost_includes):
     return result
 
 def precompiled_h_path():
-    root_path= Path(__file__).parent.parent
+    root_path= Path(__file__).parent.parent.parent
     return root_path / 'precompiled' / 'precompiled.h'
 
 def save_to_file(content, path):
