@@ -6,5 +6,6 @@ SUBDIRS = \
     vsprops
 
 EXTRA_DIST = \
+    .clang-format \
     COPYING \
     README.md
