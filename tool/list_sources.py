@@ -6,7 +6,7 @@ import os.path
 from pathlib import Path
 
 
-directories = ['library', 'sample']
+directories = ['library', 'product', 'sample', 'utility']
 extensions = ['h', 'hpp', 'c', 'cpp']
 
 def list_iter(root_path, directory, extension):
