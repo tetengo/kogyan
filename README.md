@@ -1,4 +1,4 @@
-kogyan 1.1.0
+kogyan 1.2.0
 ============
 
 A common development tool set.
