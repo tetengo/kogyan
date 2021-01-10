@@ -1,66 +1,64 @@
 #! /usr/bin/env python3
-# Makes precompiled.h
-# Copyright (C) 2019-2021 kaoru  https://www.tetengo.org/
+"""Makes precompiled.h
+    
+    Copyright (C) 2019-2021 kaoru  https://www.tetengo.org/
+"""
 
+import pathlib
 import re
-from pathlib import Path
+from typing import Set, Tuple
 
 import list_sources
 
 
-def main():
-    (libc_includes, libcpp_includes, boost_includes) = list_includes()
-    precompiled_h = make_precompiled_h(libc_includes, libcpp_includes, boost_includes)
+def main() -> None:
+    """The main function."""
+    libc_includes, libcpp_includes, boost_includes = _list_includes()
+    precompiled_h: str = _make_precompiled_h(
+        libc_includes, libcpp_includes, boost_includes
+    )
+    _save_to_file(precompiled_h, _precompiled_h_path())
 
-    save_to_file(precompiled_h, precompiled_h_path())
 
-
-def list_includes():
+def _list_includes() -> Tuple[Set[str], Set[str], Set[str]]:
     libc_includes = set()
     libcpp_includes = set()
     boost_includes = set()
-
     for path in list_sources.list():
         (
             libc_includes_per_file,
             libcpp_includes_per_file,
             boost_includes_per_file,
-        ) = list_includes_per_file(path)
+        ) = _list_includes_per_file(path)
         libc_includes |= libc_includes_per_file
         libcpp_includes |= libcpp_includes_per_file
         boost_includes |= boost_includes_per_file
-
     return (libc_includes, libcpp_includes, boost_includes)
 
 
-def list_includes_per_file(path):
+def _list_includes_per_file(path: pathlib.Path) -> Tuple[Set[str], Set[str], Set[str]]:
     libc_includes = set()
     libcpp_includes = set()
     boost_includes = set()
-
     with path.open() as stream:
         for line in stream:
             line = line.rstrip("\r\n")
-
             libc_match = re.search("^#\s*include\s+<([46a-z]+\.h)>", line)
-            if libc_match and not is_exception_include(line):
+            if libc_match and not _is_exception_include(line):
                 libc_includes.add(libc_match.group(1))
                 continue
-
             libcpp_match = re.search("^#\s*include\s+<([a-z_/]+)>", line)
-            if libcpp_match and not is_exception_include(line):
+            if libcpp_match and not _is_exception_include(line):
                 libcpp_includes.add(libcpp_match.group(1))
                 continue
-
             boost_match = re.search("^#\s*include\s+<(boost\/[^>]+)>", line)
-            if boost_match and not is_exception_include(line):
+            if boost_match and not _is_exception_include(line):
                 boost_includes.add(boost_match.group(1))
                 continue
-
     return (libc_includes, libcpp_includes, boost_includes)
 
 
-def is_exception_include(line):
+def _is_exception_include(line: str) -> bool:
     if line == "#include <errno.h>":
         return True
     elif line == "#include <iconv.h>":
@@ -71,9 +69,10 @@ def is_exception_include(line):
         return False
 
 
-def make_precompiled_h(libc_includes, libcpp_includes, boost_includes):
-    result = ""
-
+def _make_precompiled_h(
+    libc_includes: Set[str], libcpp_includes: Set[str], boost_includes: Set[str]
+) -> str:
+    result: str = ""
     result += (
         """
 /*! \\file
@@ -89,26 +88,20 @@ def make_precompiled_h(libc_includes, libcpp_includes, boost_includes):
 """.strip()
         + "\n\n\n"
     )
-
     result += "/* C Standard Library */\n"
     for h in sorted(libc_includes):
         result += "#include <" + h + ">\n"
     result += "\n"
-
     result += "#if defined(__cplusplus)\n\n"
-
     result += "// C++ Standard Library\n"
     for h in sorted(libcpp_includes):
         result += "#include <" + h + ">\n"
     result += "\n"
-
     result += "// Boost\n"
     for h in sorted(boost_includes):
         result += "#include <" + h + ">\n"
     result += "\n"
-
     result += "#endif\n"
-
     result += (
         "\n\n"
         + """
@@ -128,18 +121,18 @@ def make_precompiled_h(libc_includes, libcpp_includes, boost_includes):
 """.strip()
         + "\n"
     )
-
     return result
 
 
-def precompiled_h_path():
-    root_path = Path(__file__).parent.parent.parent
+def _precompiled_h_path() -> pathlib.Path:
+    root_path: pathlib.Path = pathlib.Path(__file__).parent.parent.parent
     return root_path / "precompiled" / "precompiled.h"
 
 
-def save_to_file(content, path):
+def _save_to_file(content: str, path: pathlib.Path) -> None:
     with path.open(mode="w", newline="\r\n") as stream:
         stream.write(content)
 
 
-main()
+if __name__ == "__main__":
+    main()

@@ -1,15 +1,17 @@
 #! /usr/bin/env python3
-# IWYU output filter
-# Copyright (C) 2019-2021 kaoru  https://www.tetengo.org/
+"""IWYU output filter
+
+    Copyright (C) 2019-2021 kaoru  https://www.tetengo.org/
+"""
 
 import re
 import sys
 
 
-def main():
-    no_error_pattern = re.compile("has correct #includes/fwd-decls\)$")
+def main() -> None:
+    no_error_pattern: re.Pattern = re.compile("has correct #includes/fwd-decls\)$")
 
-    exit_code = 0
+    exit_code: int = 0
     for line in sys.stdin:
         line = line.rstrip("\n")
 
@@ -24,4 +26,5 @@ def main():
     exit(exit_code)
 
 
-main()
+if __name__ == "__main__":
+    main()
