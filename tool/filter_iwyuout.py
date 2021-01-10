@@ -7,11 +7,11 @@ import sys
 
 
 def main():
-    no_error_pattern = re.compile('has correct #includes/fwd-decls\)$')
+    no_error_pattern = re.compile("has correct #includes/fwd-decls\)$")
 
     exit_code = 0
     for line in sys.stdin:
-        line = line.rstrip('\n')
+        line = line.rstrip("\n")
 
         if len(line) == 0:
             continue
@@ -20,7 +20,7 @@ def main():
 
         print(line)
         exit_code = 1
-    
+
     exit(exit_code)
 
 

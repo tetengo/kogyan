@@ -2,77 +2,80 @@
 # Makes precompiled.h
 # Copyright (C) 2019-2021 kaoru  https://www.tetengo.org/
 
-from pathlib import Path
 import re
+from pathlib import Path
 
 import list_sources
 
 
 def main():
     (libc_includes, libcpp_includes, boost_includes) = list_includes()
-    precompiled_h = \
-        make_precompiled_h(libc_includes, libcpp_includes, boost_includes)
-    
+    precompiled_h = make_precompiled_h(libc_includes, libcpp_includes, boost_includes)
+
     save_to_file(precompiled_h, precompiled_h_path())
+
 
 def list_includes():
     libc_includes = set()
     libcpp_includes = set()
     boost_includes = set()
-    
+
     for path in list_sources.list():
         (
             libc_includes_per_file,
             libcpp_includes_per_file,
-            boost_includes_per_file
+            boost_includes_per_file,
         ) = list_includes_per_file(path)
         libc_includes |= libc_includes_per_file
         libcpp_includes |= libcpp_includes_per_file
         boost_includes |= boost_includes_per_file
-    
+
     return (libc_includes, libcpp_includes, boost_includes)
+
 
 def list_includes_per_file(path):
     libc_includes = set()
     libcpp_includes = set()
     boost_includes = set()
-    
+
     with path.open() as stream:
         for line in stream:
-            line = line.rstrip('\r\n')
-            
-            libc_match = re.search('^#\s*include\s+<([46a-z]+\.h)>', line)
+            line = line.rstrip("\r\n")
+
+            libc_match = re.search("^#\s*include\s+<([46a-z]+\.h)>", line)
             if libc_match and not is_exception_include(line):
                 libc_includes.add(libc_match.group(1))
                 continue
-            
-            libcpp_match = re.search('^#\s*include\s+<([a-z_/]+)>', line)
+
+            libcpp_match = re.search("^#\s*include\s+<([a-z_/]+)>", line)
             if libcpp_match and not is_exception_include(line):
                 libcpp_includes.add(libcpp_match.group(1))
                 continue
-            
-            boost_match = re.search('^#\s*include\s+<(boost\/[^>]+)>', line)
-            if \
-                boost_match and not is_exception_include(line):
+
+            boost_match = re.search("^#\s*include\s+<(boost\/[^>]+)>", line)
+            if boost_match and not is_exception_include(line):
                 boost_includes.add(boost_match.group(1))
                 continue
-    
+
     return (libc_includes, libcpp_includes, boost_includes)
 
+
 def is_exception_include(line):
-    if line == '#include <errno.h>':
+    if line == "#include <errno.h>":
         return True
-    elif line == '#include <iconv.h>':
+    elif line == "#include <iconv.h>":
         return True
-    elif re.match('^#\s*include\s+<boost\/test\/', line):
+    elif re.match("^#\s*include\s+<boost\/test\/", line):
         return True
     else:
         return False
 
+
 def make_precompiled_h(libc_includes, libcpp_includes, boost_includes):
-    result = ''
-    
-    result += '''
+    result = ""
+
+    result += (
+        """
 /*! \\file
     \\brief The precompiled header.
 
@@ -83,28 +86,32 @@ def make_precompiled_h(libc_includes, libcpp_includes, boost_includes):
 
 #if !defined(PRECOMPILED_H)
 #define PRECOMPILED_H
-'''.strip() + '\n\n\n'
-    
-    result += '/* C Standard Library */\n'
+""".strip()
+        + "\n\n\n"
+    )
+
+    result += "/* C Standard Library */\n"
     for h in sorted(libc_includes):
-        result += '#include <' + h + '>\n'
-    result += '\n'
-    
-    result += '#if defined(__cplusplus)\n\n'
-    
-    result += '// C++ Standard Library\n'
+        result += "#include <" + h + ">\n"
+    result += "\n"
+
+    result += "#if defined(__cplusplus)\n\n"
+
+    result += "// C++ Standard Library\n"
     for h in sorted(libcpp_includes):
-        result += '#include <' + h + '>\n'
-    result += '\n'
-    
-    result += '// Boost\n'
+        result += "#include <" + h + ">\n"
+    result += "\n"
+
+    result += "// Boost\n"
     for h in sorted(boost_includes):
-        result += '#include <' + h + '>\n'
-    result += '\n'
-    
-    result += '#endif\n'
-    
-    result += '\n\n' + '''
+        result += "#include <" + h + ">\n"
+    result += "\n"
+
+    result += "#endif\n"
+
+    result += (
+        "\n\n"
+        + """
 // Platform Dependent
 #if defined(_MSC_VER)
 #if defined(__cplusplus)
@@ -118,16 +125,21 @@ def make_precompiled_h(libc_includes, libcpp_includes, boost_includes):
 
 
 #endif
-'''.strip() + '\n'
+""".strip()
+        + "\n"
+    )
 
     return result
 
+
 def precompiled_h_path():
-    root_path= Path(__file__).parent.parent.parent
-    return root_path / 'precompiled' / 'precompiled.h'
+    root_path = Path(__file__).parent.parent.parent
+    return root_path / "precompiled" / "precompiled.h"
+
 
 def save_to_file(content, path):
-    with path.open(mode='w', newline='\r\n') as stream:
+    with path.open(mode="w", newline="\r\n") as stream:
         stream.write(content)
+
 
 main()

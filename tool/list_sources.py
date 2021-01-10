@@ -5,19 +5,21 @@
 import os.path
 from pathlib import Path
 
+directories = ["library", "product", "sample", "utility"]
+extensions = ["h", "hpp", "c", "cpp"]
 
-directories = ['library', 'product', 'sample', 'utility']
-extensions = ['h', 'hpp', 'c', 'cpp']
 
 def list_iter(root_path, directory, extension):
     path = root_path / directory
-    return [p for p in path.glob('**/*.' + extension)]
+    return [p for p in path.glob("**/*." + extension)]
+
 
 def root():
     return Path(__file__).parent.parent.parent
 
+
 def list():
-    root_path= root()
+    root_path = root()
     files = []
     for d in directories:
         if os.path.exists(root_path / d):
