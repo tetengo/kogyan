@@ -9,3 +9,7 @@ EXTRA_DIST = \
     .clang-format \
     COPYING \
     README.md
+
+
+format:
+	${MAKE} -C tool format

@@ -1,27 +1,44 @@
 #! /usr/bin/env python3
-# Lists the source files
-# Copyright (C) 2019-2021 kaoru  https://www.tetengo.org/
+"""Lists the source files
+
+    Copyright (C) 2019-2021 kaoru  https://www.tetengo.org/
+"""
 
 import os.path
-from pathlib import Path
+import pathlib
+from typing import List
+
+directories: List[str] = ["library", "product", "sample", "utility"]
+extensions: List[str] = ["h", "hpp", "c", "cpp"]
 
 
-directories = ['library', 'product', 'sample', 'utility']
-extensions = ['h', 'hpp', 'c', 'cpp']
+def _list_iter(
+    root_path: pathlib.Path, directory: str, extension: str
+) -> List[pathlib.Path]:
+    path: pathlib.Path = root_path / directory
+    return [p for p in path.glob("**/*." + extension)]
 
-def list_iter(root_path, directory, extension):
-    path = root_path / directory
-    return [p for p in path.glob('**/*.' + extension)]
 
-def root():
-    return Path(__file__).parent.parent.parent
+def root() -> pathlib.Path:
+    """Returns the repository root directory.
 
-def list():
-    root_path= root()
-    files = []
+    Returns:
+        pathlib.Path: The repository root directory.
+    """
+    return pathlib.Path(__file__).parent.parent.parent
+
+
+def list() -> List[pathlib.Path]:
+    """Lists the source files.
+
+    Returns:
+        list[pathlib.Path]: The source files.
+    """
+    root_path: pathlib.Path = root()
+    files: list[pathlib.Path] = []
     for d in directories:
         if os.path.exists(root_path / d):
             for e in extensions:
-                for f in list_iter(root_path, d, e):
+                for f in _list_iter(root_path, d, e):
                     files.append(f)
     return files
