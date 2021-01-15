@@ -13,6 +13,9 @@ EXTRA_DIST = \
     iwyu_mappings.imp
 
 
+mypy: ${script_files}
+	${MYPY} ${srcdir}
+
 format: ${EXTRA_DIST}
 	${BLACK} ${srcdir}
 	${ISORT} ${srcdir}
