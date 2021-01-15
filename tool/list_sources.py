@@ -35,7 +35,7 @@ def list() -> List[pathlib.Path]:
         list[pathlib.Path]: The source files.
     """
     root_path: pathlib.Path = root()
-    files: list[pathlib.Path] = []
+    files: List[pathlib.Path] = []
     for d in directories:
         if os.path.exists(root_path / d):
             for e in extensions:
