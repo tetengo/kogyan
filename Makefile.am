@@ -11,5 +11,8 @@ EXTRA_DIST = \
     README.md
 
 
+mypy:
+	${MAKE} -C tool mypy
+
 format:
 	${MAKE} -C tool format
