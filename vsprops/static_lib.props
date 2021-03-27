@@ -5,6 +5,10 @@
   <PropertyGroup>
     <IntDir>$(ProjectDir)obj\$(Configuration).$(Platform)\</IntDir>
   </PropertyGroup>
-  <ItemDefinitionGroup />
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <ProgramDataBaseFileName>$(OutDir)$(TargetName).pdb</ProgramDataBaseFileName>
+    </ClCompile>
+  </ItemDefinitionGroup>
   <ItemGroup />
 </Project>
