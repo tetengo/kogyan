@@ -4,6 +4,7 @@
 EXTRA_DIST = \
     application.props \
     common.props \
+    common_setup.props \
     compilation.props \
     compilation_debug.props \
     compilation_release.props \
@@ -11,5 +12,6 @@ EXTRA_DIST = \
     compilation_x64.props \
     dynamic_lib.props \
     header_only_lib.props \
+    installer.props \
     static_lib.props \
     test.props
