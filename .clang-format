@@ -4,19 +4,6 @@
 ---
 Language: Cpp
 AccessModifierOffset: -4
-AfterCaseLabel: true
-AfterClass: true
-AfterEnum: true
-AfterFunction: true
-AfterNamespace: true
-AfterStruct: true
-AfterUnion: true
-AfterExternBlock: true
-BeforeCatch: true
-BeforeElse: true
-BeforeLambdaBody: false
-BeforeWhile: false
-AfterControlStatement: true
 AlignAfterOpenBracket: AlwaysBreak
 AlignConsecutiveAssignments: false
 AlignConsecutiveDeclarations: true
@@ -40,9 +27,11 @@ AlwaysBreakTemplateDeclarations: Yes
 BinPackArguments: false
 BinPackParameters: false
 BraceWrapping:
+  AfterCaseLabel: true
   AfterClass: true
   AfterControlStatement: true
   AfterEnum: true
+  AfterExternBlock: true
   AfterFunction: true
   AfterNamespace: true
   AfterObjCDeclaration: true
@@ -50,12 +39,14 @@ BraceWrapping:
   AfterUnion: true
   BeforeCatch: true
   BeforeElse: true
+  BeforeLambdaBody: false
+  BeforeWhile: false
   IndentBraces: false
   SplitEmptyFunction: false
   SplitEmptyRecord: false
+  SplitEmptyNamespace: false
 BreakBeforeBinaryOperators: None
 BreakBeforeBraces: Custom
-BreakBeforeConceptDeclarations: true
 BreakBeforeTernaryOperators: false
 BreakConstructorInitializers: AfterColon
 BreakInheritanceList: AfterColon
@@ -69,7 +60,6 @@ ContinuationIndentWidth: 4
 Cpp11BracedListStyle: false
 DerivePointerAlignment: false
 DisableFormat: false
-EmptyLineBeforeAccessModifier: Always
 FixNamespaceComments: false
 ForEachMacros: [ foreach, Q_FOREACH, BOOST_FOREACH ]
 IncludeBlocks: Regroup
@@ -89,7 +79,6 @@ IncludeCategories:
 IncludeIsMainRegex: ''
 IndentCaseLabels: false
 IndentPPDirectives: None
-IndentRequires: true
 IndentWidth: 4
 IndentWrappedFunctionNames: false
 KeepEmptyLinesAtTheStartOfBlocks: false
@@ -109,12 +98,11 @@ SpaceAfterCStyleCast: false
 SpaceAfterLogicalNot: false
 SpaceAfterTemplateKeyword: true
 SpaceBeforeAssignmentOperators: true
-SpaceBeforeCaseColon: false
 SpaceBeforeCpp11BracedList: false
 SpaceBeforeCtorInitializerColon: true
 SpaceBeforeInheritanceColon: true
 SpaceBeforeParens: ControlStatements
-SpaceBeforeRangeBasedForLoopColon: true
+SpaceBeforeRangeBasedForLoopColon: false
 SpaceBeforeSquareBrackets: false
 SpaceInEmptyBlock: false
 SpaceInEmptyParentheses: false
@@ -125,9 +113,6 @@ SpacesInConditionalStatement: false
 SpacesInContainerLiterals: true
 SpacesInParentheses: false
 SpacesInSquareBrackets: false
-SplitEmptyFunction: false
-SplitEmptyRecord: false
-SplitEmptyNamespace: false
 Standard: Latest
 TabWidth: 8
 UseCRLF: true
