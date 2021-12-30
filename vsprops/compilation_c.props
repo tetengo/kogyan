@@ -6,8 +6,8 @@
   <ItemDefinitionGroup>
     <ClCompile>
       <CompileAs>CompileAsC</CompileAs>
-      <DisableLanguageExtensions>true</DisableLanguageExtensions>
       <TreatWChar_tAsBuiltInType>false</TreatWChar_tAsBuiltInType>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup />
