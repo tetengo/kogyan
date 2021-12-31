@@ -88,7 +88,7 @@ def _make_precompiled_h(
 """.strip()
         + "\n\n\n"
     )
-    result += "/* C Standard Library */\n"
+    result += "// C Standard Library\n"
     for h in sorted(libc_includes):
         result += "#include <" + h + ">\n"
     result += "\n"
