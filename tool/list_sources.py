@@ -6,15 +6,14 @@
 
 import os.path
 import pathlib
-from typing import List
 
-directories: List[str] = ["library", "product", "sample", "utility"]
-extensions: List[str] = ["h", "hpp", "c", "cpp"]
+directories: list[str] = ["library", "product", "sample", "utility"]
+extensions: list[str] = ["h", "hpp", "c", "cpp"]
 
 
-def _list_iter(
+def _list_sources_iter(
     root_path: pathlib.Path, directory: str, extension: str
-) -> List[pathlib.Path]:
+) -> list[pathlib.Path]:
     path: pathlib.Path = root_path / directory
     return [p for p in path.glob("**/*." + extension)]
 
@@ -28,17 +27,17 @@ def root() -> pathlib.Path:
     return pathlib.Path(__file__).parent.parent.parent
 
 
-def list() -> List[pathlib.Path]:
+def list_sources() -> list[pathlib.Path]:
     """Lists the source files.
 
     Returns:
         list[pathlib.Path]: The source files.
     """
     root_path: pathlib.Path = root()
-    files: List[pathlib.Path] = []
+    files: list[pathlib.Path] = []
     for d in directories:
         if os.path.exists(root_path / d):
             for e in extensions:
-                for f in _list_iter(root_path, d, e):
+                for f in _list_sources_iter(root_path, d, e):
                     files.append(f)
     return files

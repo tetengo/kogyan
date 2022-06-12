@@ -7,21 +7,20 @@
 import os
 import subprocess
 import sys
-from typing import List
 
 import list_sources
 
 max_length: int = 80
 
 
-def main(args: List[str]) -> None:
+def main(args: list[str]) -> None:
     """The main function.
 
     Args:
         args (list[str]): Program rguments
     """
     root_path_string = str(list_sources.root())
-    for path in list_sources.list():
+    for path in list_sources.list_sources():
         path_string = str(path)[len(root_path_string) :]
         path_main_string, extension_string = os.path.splitext(path)
         if len(path_string) > max_length:

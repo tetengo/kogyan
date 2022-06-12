@@ -6,7 +6,6 @@
 
 import pathlib
 import re
-from typing import Set, Tuple
 
 import list_sources
 
@@ -20,11 +19,11 @@ def main() -> None:
     _save_to_file(precompiled_h, _precompiled_h_path())
 
 
-def _list_includes() -> Tuple[Set[str], Set[str], Set[str]]:
+def _list_includes() -> tuple[set[str], set[str], set[str]]:
     libc_includes = set()
     libcpp_includes = set()
     boost_includes = set()
-    for path in list_sources.list():
+    for path in list_sources.list_sources():
         (
             libc_includes_per_file,
             libcpp_includes_per_file,
@@ -36,7 +35,7 @@ def _list_includes() -> Tuple[Set[str], Set[str], Set[str]]:
     return (libc_includes, libcpp_includes, boost_includes)
 
 
-def _list_includes_per_file(path: pathlib.Path) -> Tuple[Set[str], Set[str], Set[str]]:
+def _list_includes_per_file(path: pathlib.Path) -> tuple[set[str], set[str], set[str]]:
     libc_includes = set()
     libcpp_includes = set()
     boost_includes = set()
@@ -70,7 +69,7 @@ def _is_exception_include(line: str) -> bool:
 
 
 def _make_precompiled_h(
-    libc_includes: Set[str], libcpp_includes: Set[str], boost_includes: Set[str]
+    libc_includes: set[str], libcpp_includes: set[str], boost_includes: set[str]
 ) -> str:
     result: str = ""
     result += (
