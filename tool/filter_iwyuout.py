@@ -10,7 +10,7 @@ import sys
 
 def main() -> None:
     """The main function."""
-    no_error_pattern: re.Pattern = re.compile("has correct #includes/fwd-decls\)$")
+    no_error_pattern: re.Pattern[str] = re.compile("has correct #includes/fwd-decls\)$")
     exit_code: int = 0
     for line in sys.stdin:
         line = line.rstrip("\n")
