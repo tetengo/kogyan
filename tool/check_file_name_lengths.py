@@ -17,7 +17,7 @@ def main(args: list[str]) -> None:
     """The main function.
 
     Args:
-        args (list[str]): Program rguments
+        args: Program arguments
     """
     root_path_string = str(list_sources.root())
     for path in list_sources.list_sources():
