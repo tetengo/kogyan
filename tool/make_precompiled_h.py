@@ -4,8 +4,8 @@
     Copyright (C) 2019-2022 kaoru  https://www.tetengo.org/
 """
 
-import pathlib
 import re
+from pathlib import Path
 
 import list_sources
 
@@ -35,7 +35,7 @@ def _list_includes() -> tuple[set[str], set[str], set[str]]:
     return (libc_includes, libcpp_includes, boost_includes)
 
 
-def _list_includes_per_file(path: pathlib.Path) -> tuple[set[str], set[str], set[str]]:
+def _list_includes_per_file(path: Path) -> tuple[set[str], set[str], set[str]]:
     libc_includes = set()
     libcpp_includes = set()
     boost_includes = set()
@@ -123,12 +123,12 @@ def _make_precompiled_h(
     return result
 
 
-def _precompiled_h_path() -> pathlib.Path:
-    root_path: pathlib.Path = pathlib.Path(__file__).parent.parent.parent
+def _precompiled_h_path() -> Path:
+    root_path: Path = Path(__file__).parent.parent.parent
     return root_path / "precompiled" / "precompiled.h"
 
 
-def _save_to_file(content: str, path: pathlib.Path) -> None:
+def _save_to_file(content: str, path: Path) -> None:
     with path.open(mode="w", newline="\r\n") as stream:
         stream.write(content)
 
