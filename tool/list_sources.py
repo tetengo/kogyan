@@ -22,7 +22,7 @@ def root() -> pathlib.Path:
     """Returns the repository root directory.
 
     Returns:
-        pathlib.Path: The repository root directory.
+        The repository root directory.
     """
     return pathlib.Path(__file__).parent.parent.parent
 
@@ -31,7 +31,7 @@ def list_sources() -> list[pathlib.Path]:
     """Lists the source files.
 
     Returns:
-        list[pathlib.Path]: The source files.
+        The source files.
     """
     root_path: pathlib.Path = root()
     files: list[pathlib.Path] = []
