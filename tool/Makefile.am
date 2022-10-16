@@ -18,4 +18,4 @@ mypy: ${script_files}
 
 format: ${EXTRA_DIST}
 	${BLACK} ${srcdir}
-	${ISORT} ${srcdir}
+	${ISORT} ${ISORT_OPTS} ${srcdir}
