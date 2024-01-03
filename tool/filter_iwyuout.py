@@ -1,4 +1,4 @@
-#! /usr/bin/env python3
+#! /usr/bin/env python
 """IWYU output filter
 
     Copyright (C) 2019-2023 kaoru  https://www.tetengo.org/
