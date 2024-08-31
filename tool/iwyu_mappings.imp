@@ -9,12 +9,14 @@
   { include: ["<ext/new_allocator.h>",  "private", "<cstddef>",     "public"] },
   
   { include: ["@<boost/algorithm/string/.+>",                      "private", "<boost/algorithm/string.hpp>",          "public"] },
+  { include: ["<boost/container_hash/extensions.hpp>",             "private", "<boost/container_hash/hash.hpp>",       "public"] },
   { include: ["<boost/detail/basic_pointerbuf.hpp>",               "private", "<boost/lexical_cast.hpp>",              "public"] },
   { include: ["@<boost/format/.+>",                                "private", "<boost/format.hpp>",                    "public"] },
   { include: ["<boost/interprocess/detail/os_file_functions.hpp>", "private", "<boost/interprocess/file_mapping.hpp>", "public"] },
   { include: ["@<boost/lexical_cast/.+>",                          "private", "<boost/lexical_cast.hpp>",              "public"] },
   { include: ["@<boost/preprocessor/.+>",                          "private", "<boost/preprocessor.hpp>",              "public"] },
   { include: ["@<boost/program_options/.+>",                       "private", "<boost/program_options.hpp>",           "public"] },
+  { include: ["@<boost/uuid/basic_random_generator.hpp>",          "private", "<boost/uuid/random_generator.hpp>",     "public"] },
+  { include: ["@<boost/uuid/detail/chacha20.hpp>",                 "private", "<boost/uuid/random_generator.hpp>",     "public"] },
   { include: ["@<boost/test/.+>",                                  "private", "<boost/test/unit_test.hpp>",            "public"] },
-  { include: ["<boost/container_hash/extensions.hpp>",             "private", "<boost/container_hash/hash.hpp>",       "public"] },
 ]
