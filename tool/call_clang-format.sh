@@ -1,6 +1,6 @@
 #! /bin/sh
 # clang-format Caller
-# Copyright (C) 2019-2024 kaoru  https://www.tetengo.org/
+# Copyright (C) 2019-2025 kaoru  https://www.tetengo.org/
 
 FILEPATH=$1
 FILEPATH_TMP=${FILEPATH}.tmp
